@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Purple Wonderland Hub</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&family=Montserrat&display=swap');
+
+  /* Reset */
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    background: linear-gradient(135deg, #a17fe0, #6c42a4);
+    font-family: 'Montserrat', sans-serif;
+    color: #eee;
+    min-height: 100vh;
+    overflow-x: hidden;
+    position: relative;
+  }
+
+  header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 3rem;
+    background: rgba(100, 42, 140, 0.7);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+  }
+
+  header h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 2.4rem;
+    color: #d6b3ff;
+    user-select: none;
+  }
+
+  nav a { color: #d6b3ff; margin-left: 2rem; text-decoration: none; font-weight: 600; transition: color 0.3s; }
+  nav a:hover { color: #f3e8ff; }
+
+  main { padding: 2rem 3rem; max-width: 900px; margin: auto; }
+
+  .hero { text-align: center; padding: 3rem 1rem 5rem; position: relative; user-select: none; }
+  .hero h2 { font-family: 'Great Vibes', cursive; font-size: 3.5rem; color: #f0e6ff; text-shadow: 0 0 10px #bb88ff; margin-bottom: 1rem; }
+  .hero p { font-size: 1.2rem; color: #e6d7ff; margin-bottom: 2rem; }
+
+  .btn-primary {
+    background: #b287ff; color: #fff; padding: 0.8rem 2rem; font-size: 1.1rem; border: none; border-radius: 25px;
+    cursor: pointer; box-shadow: 0 0 8px #9a5fff; transition: background 0.3s;
+  }
+  .btn-primary:hover { background: #d3b3ff; color: #5b2b8a; }
+
+  .sparkle { position: absolute; background: #d6b3ff; border-radius: 50%; opacity: 0.8; animation: sparkleMove 6s linear infinite; }
+  @keyframes sparkleMove {
+    0% { transform: translateY(0) scale(1); opacity: 0.8; }
+    50% { opacity: 0.3; scale: 1.5; }
+    100% { transform: translateY(-100vh) scale(0.5); opacity: 0; }
+  }
+
+  section { margin-bottom: 5rem; }
+  section h3 {
+    font-family: 'Great Vibes', cursive; font-size: 2.4rem; margin-bottom: 1.2rem; text-align: center;
+    color: #d6b3ff; text-shadow: 0 0 6px #b287ff;
+  }
+
+  .gallery {
+    display: flex; overflow-x: auto; gap: 1rem; padding-bottom: 1rem; scroll-behavior: smooth;
+  }
+  .gallery img {
+    width: 250px; height: 160px; border-radius: 15px; object-fit: cover; box-shadow: 0 0 10px #a176ff;
+    transition: transform 0.3s, box-shadow 0.3s, filter 0.3s; cursor: pointer;
+  }
+  .gallery img:hover { transform: scale(1.1); box-shadow: 0 0 20px #d8b8ff; filter: brightness(1.05); }
+
+  #playlist audio { width: 100%; border-radius: 12px; box-shadow: 0 0 15px #b287ff; outline: none; }
+
+  #puzzle-container { max-width: 500px; margin: auto; text-align: center; }
+  #puzzleCanvas { border-radius: 15px; box-shadow: 0 0 15px #b287ff; cursor: pointer; display: block; margin: 0 auto; background: #21004a; }
+  #puzzleMessage { text-align: center; color: #d6b3ff; font-weight: 600; margin-top: 10px; min-height: 1.2em; }
+  #shuffleBtn { background: #b287ff; color: #fff; border: none; border-radius: 25px; padding: 0.6rem 1.5rem; cursor: pointer; margin-top: 15px; display: block; margin-left: auto; margin-right: auto; }
+  #shuffleBtn:hover { background: #d3b3ff; color: #5b2b8a; }
+  #puzzle-explanation { text-align: center; max-width: 500px; margin: 0 auto 1rem auto; color: #d6b3ff; font-style: italic; }
+
+  .messages-container { max-width: 600px; margin: 0 auto; }
+  .messages-list { min-height: 150px; background: rgba(100, 42, 140, 0.4); border-radius: 15px; padding: 1rem; overflow-y: auto; max-height: 300px; }
+  .message { background: #c4a6ff66; margin-bottom: 10px; padding: 10px 15px; border-radius: 20px; color: #290044; font-weight: 600; position: relative; animation: floatUp 5s ease forwards; }
+  @keyframes floatUp { 0% { opacity: 1; transform: translateY(0); } 100% { opacity: 0; transform: translateY(-40px); } }
+
+  form { display: flex; margin-top: 1rem; }
+  input[type="text"] { flex: 1; padding: 0.6rem 1rem; border-radius: 30px 0 0 30px; border: none; font-size: 1rem; }
+  button[type="submit"] { background: #b287ff; color: #fff; border: none; padding: 0 1.5rem; font-size: 1rem; border-radius: 0 30px 30px 0; cursor: pointer; box-shadow: 0 0 8px #9a5fff; transition: background 0.3s; }
+  button[type="submit"]:hover { background: #d3b3ff; color: #5b2b8a; }
+
+  .video-container { max-width: 600px; margin: 0 auto; text-align: center; }
+  .video-container video { width: 100%; border-radius: 20px; box-shadow: 0 0 15px #b287ff; }
+
+  footer { text-align: center; padding: 1rem; background: rgba(100, 42, 140, 0.6); color: #d6b3ff; font-style: italic; user-select: none; }
+
+  @media (max-width: 600px) {
+    header { flex-direction: column; gap: 1rem; padding: 1rem 1.5rem; }
+    nav a { margin-left: 0; margin-right: 1rem; font-size: 1rem; }
+    main { padding: 1rem 1rem; max-width: 100%; }
+    .hero h2 { font-size: 2.2rem; padding: 0 1rem; }
+    .hero p { font-size: 1rem; padding: 0 1rem; }
+    .gallery { justify-content: center; padding: 0 0.5rem; }
+    .gallery img { width: 150px; height: 100px; }
+    #puzzleCanvas { width: 100% !important; height: auto !important; max-width: 400px; }
+    #puzzle-container { max-width: 100%; padding: 0 1rem; }
+    .video-container { padding: 0 1rem; }
+    #playlist audio { width: 100%; }
+    form { flex-direction: column; gap: 0.5rem; }
+    input[type="text"] { border-radius: 30px; flex: unset; width: 100%; }
+    button[type="submit"] { border-radius: 30px; width: 100%; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🦋 Welcome to my loves, Kendi....</h1>
+  <nav>
+    <a href="#gallery">Gallery</a>
+    <a href="#playlist">Playlist</a>
+    <a href="#puzzle">Games</a>
+    <a href="#video">Video</a>
+    <a href="#messages">Messages</a>
+  </nav>
+</header>
+
+<main>
+  <section class="hero" id="hero">
+    <h2>Welcome to Kendi’s Purple Wonderland!</h2>
+    <p>Step inside and explore all the purple magic waiting for you.</p>
+    <button class="btn-primary" onclick="document.getElementById('gallery').scrollIntoView({behavior: 'smooth'})">Start Your Journey</button>
+
+    <!-- Sparkles -->
+    <div id="sparkles-container"></div>
+  </section>
+
+  <section id="gallery">
+    <h3>Let these photos remind you that you are beautiful</h3>
+    <div class="gallery" aria-label="Photo gallery">
+      <!-- paths point to project-folder/media/ since this HTML sits outside project-folder -->
+      <img src="project-folder/media/photo1.jpeg" alt="Purple photo 1" />
+      <img src="project-folder/media/photo2.jpeg" alt="Purple photo 2" />
+      <img src="project-folder/media/photo3.jpeg" alt="Purple photo 3" />
+      <img src="project-folder/media/photo4.jpeg" alt="Purple photo 4" />
+      <img src="project-folder/media/photo5.jpeg" alt="Purple photo 5" />
+      <img src="project-folder/media/photo6.jpeg" alt="Purple photo 6" />
+      <img src="project-folder/media/photo7.jpeg" alt="Purple photo 7" />
+      <img src="project-folder/media/photo8.jpeg" alt="Purple photo 8" />
+      <img src="project-folder/media/photo9.jpeg" alt="Purple photo 9" />
+      <img src="project-folder/media/photo10.jpeg" alt="Purple photo 10" />
+    </div>
+  </section>
+
+  <section id="playlist">
+    <h3>I dedicate this song to you</h3>
+    <audio controls aria-label="Audio player for When it Comes To You">
+      <source src="project-folder/media/song.mp3" type="audio/mpeg" />
+      Your browser does not support the audio element.
+    </audio>
+  </section>
+
+  <section id="puzzle">
+    <h3>Relax your mind with the puzzle</h3>
+    <p id="puzzle-explanation">
+      Click on two puzzle pieces to swap them and complete the image. Press “Shuffle Puzzle” to start a new challenge!
+    </p>
+    <div id="puzzle-container" aria-label="Jigsaw puzzle game" role="application">
+      <canvas id="puzzleCanvas" width="400" height="400"></canvas>
+      <p id="puzzleMessage" aria-live="polite" aria-atomic="true"></p>
+      <button id="shuffleBtn" aria-label="Shuffle the puzzle pieces">Shuffle Puzzle</button>
+    </div>
+  </section>
+
+  <section id="video" class="video-container">
+    <h3>Birthday Celebration Video</h3>
+    <video controls aria-label="Birthday celebration video">
+      <source src="project-folder/media/birthday.mp4" type="video/mp4" />
+      Your browser does not support the video tag.
+    </video>
+  </section>
+
+  <section id="messages">
+    <h3>Send Your Birthday Wishes!</h3>
+    <div class="messages-container" aria-live="polite" aria-atomic="true">
+      <div class="messages-list" id="messagesList" aria-label="Birthday messages list"></div>
+      <form id="messageForm" aria-label="Send birthday message form">
+        <input type="text" id="messageInput" placeholder="Type your message here..." required aria-required="true" />
+        <button type="submit">Send</button>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Made with 💜 for Kendi’s Birthday
+</footer>
+
+<script>
+  // Sparkles effect
+  const sparklesContainer = document.getElementById('sparkles-container');
+  function createSparkle() {
+    const sparkle = document.createElement('div');
+    sparkle.classList.add('sparkle');
+    sparkle.style.width = sparkle.style.height = Math.random() * 6 + 4 + 'px';
+    sparkle.style.left = Math.random() * window.innerWidth + 'px';
+    sparkle.style.top = window.innerHeight + 'px';
+    sparkle.style.animationDuration = (Math.random() * 5 + 3) + 's';
+    sparklesContainer.appendChild(sparkle);
+    sparkle.addEventListener('animationend', () => sparkle.remove());
+  }
+  setInterval(createSparkle, 400);
+
+  // Messages system
+  const messageForm = document.getElementById('messageForm');
+  const messagesList = document.getElementById('messagesList');
+
+  messageForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const input = document.getElementById('messageInput');
+    const text = input.value.trim();
+    if (text === '') return;
+
+    const messageElem = document.createElement('div');
+    messageElem.className = 'message';
+    messageElem.textContent = text;
+    messagesList.appendChild(messageElem);
+    messagesList.scrollTop = messagesList.scrollHeight;
+
+    input.value = '';
+
+    // Remove message after animation (5s)
+    setTimeout(() => {
+      messageElem.remove();
+    }, 5000);
+  });
+
+  // --------- Robust Puzzle Script (uses first gallery image; paths are project-folder/media/...) ----------
+  (function() {
+    const canvas = document.getElementById('puzzleCanvas');
+    const ctx = canvas.getContext('2d');
+    const puzzleMessage = document.getElementById('puzzleMessage');
+    const shuffleBtn = document.getElementById('shuffleBtn');
+    const COLS = 4, ROWS = 4, EXPECTED = COLS * ROWS;
+    let pieceW = canvas.width / COLS, pieceH = canvas.height / ROWS;
+
+    // Use first gallery image to avoid path mismatches
+    const firstGalleryImg = document.querySelector('.gallery img');
+    const img = new Image();
+    img.crossOrigin = 'anonymous';
+    img.src = firstGalleryImg ? firstGalleryImg.src : 'project-folder/media/photo1.jpeg';
+
+    let pieces = [], shuffled = [], selected = null;
+
+    function log(msg) {
+      console.log('[PUZZLE] ' + msg);
+      if (puzzleMessage) puzzleMessage.textContent = msg;
+    }
+
+    img.onload = () => {
+      log('Image loaded: ' + img.src + ' (' + img.naturalWidth + 'x' + img.naturalHeight + ')');
+      buildPieces();
+      shuffleUntilUnsolved();
+      draw();
+    };
+
+    img.onerror = (e) => {
+      console.error('[PUZZLE] image failed to load:', img.src, e);
+      if (puzzleMessage) puzzleMessage.textContent = 'Error loading puzzle image: ' + img.src;
+    };
+
+    function buildPieces() {
+      const sW = img.naturalWidth, sH = img.naturalHeight;
+      if (!sW || !sH) {
+        log('Image natural size is zero — image likely failed to load or path is wrong.');
+        return;
+      }
+      const sPW = sW / COLS, sPH = sH / ROWS;
+      pieces = [];
+      for (let r = 0; r < ROWS; r++) {
+        for (let c = 0; c < COLS; c++) {
+          pieces.push({
+            sx: Math.round(c * sPW),
+            sy: Math.round(r * sPH),
+            sW: Math.round(sPW),
+            sH: Math.round(sPH),
+            correctIndex: r * COLS + c
+          });
+        }
+      }
+      pieceW = canvas.width / COLS;
+      pieceH = canvas.height / ROWS;
+      log(`Built ${pieces.length} pieces (pieceW=${pieceW.toFixed(1)}, pieceH=${pieceH.toFixed(1)})`);
+    }
+
+    function deepCopy(arr){ return arr.map(p => ({...p})); }
+    function shuffleArray(arr){ for (let i=arr.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[arr[i],arr[j]]=[arr[j],arr[i]];} }
+
+    function shuffleUntilUnsolved(){
+      if (!pieces || pieces.length !== EXPECTED) { log('Cannot shuffle: pieces not ready.'); return; }
+      shuffled = deepCopy(pieces);
+      let tries = 0;
+      do { shuffleArray(shuffled); tries++; if (tries>100) break; } while (isSolved());
+      log('Shuffled pieces (tries=' + tries + ')');
+    }
+
+    function draw(){
+      if (!img.complete) return;
+      if (!shuffled || shuffled.length !== EXPECTED) {
+        console.warn('[PUZZLE] shuffled invalid length:', shuffled && shuffled.length);
+        log('Internal error: shuffled pieces are missing. See console.');
+        return;
+      }
+      ctx.clearRect(0,0,canvas.width,canvas.height);
+      for (let i=0;i<shuffled.length;i++){
+        const p = shuffled[i];
+        if (!p || typeof p.sx === 'undefined') { console.error('[PUZZLE] missing piece at index', i); continue; }
+        const dx = (i % COLS) * pieceW, dy = Math.floor(i / COLS) * pieceH;
+        try { ctx.drawImage(img, p.sx, p.sy, p.sW, p.sH, dx, dy, pieceW, pieceH); }
+        catch(err){ console.error('[PUZZLE] drawImage error at index', i, err); log('Error drawing piece — check console.'); }
+        ctx.strokeStyle = '#d6b3ff'; ctx.lineWidth = 2; ctx.strokeRect(dx, dy, pieceW, pieceH);
+        if (selected === i) { ctx.strokeStyle = '#ffccff'; ctx.lineWidth = 4; ctx.strokeRect(dx+2, dy+2, pieceW-4, pieceH-4); }
+      }
+    }
+
+    function isSolved(){ if (!shuffled || shuffled.length !== EXPECTED) return false; for (let i=0;i<EXPECTED;i++) if (shuffled[i].correctIndex !== i) return false; return true; }
+
+    function toCanvasCoords(e){ const rect = canvas.getBoundingClientRect(); const scaleX = canvas.width / rect.width; const scaleY = canvas.height / rect.height; return { x: (e.clientX - rect.left) * scaleX, y: (e.clientY - rect.top) * scaleY }; }
+
+    canvas.addEventListener('click', (e) => {
+      if (!img.complete) { log('Image not ready yet'); return; }
+      if (!shuffled || shuffled.length !== EXPECTED) { log('Puzzle not ready'); return; }
+      const pt = toCanvasCoords(e);
+      const col = Math.floor(pt.x / pieceW), row = Math.floor(pt.y / pieceH);
+      if (col<0||col>=COLS||row<0||row>=ROWS) return;
+      const idx = row * COLS + col;
+      if (selected === null) { selected = idx; draw(); log('Piece selected — click another piece to swap'); return; }
+      if (selected === idx) { selected = null; draw(); log('Selection cleared'); return; }
+      if (!shuffled[selected] || !shuffled[idx]) { console.error('[PUZZLE] swap indices invalid'); log('Swap error — see console'); return; }
+      [shuffled[selected], shuffled[idx]] = [shuffled[idx], shuffled[selected]];
+      selected = null; draw();
+      if (isSolved()) log('🎉 Puzzle Solved! Happy Birthday, Kendi! 🎉'); else log('');
+    });
+
+    shuffleBtn.addEventListener('click', () => {
+      if (!pieces || pieces.length !== EXPECTED) { log('Cannot shuffle — pieces missing'); return; }
+      shuffleUntilUnsolved(); selected = null; draw(); log('Puzzle shuffled');
+    });
+
+    if (img.complete && img.naturalWidth) { setTimeout(()=>{ buildPieces(); shuffleUntilUnsolved(); draw(); }, 30); }
+    console.log('[PUZZLE] loaded, img.src=', img.src);
+  })();
+  // --------- End Puzzle Script ----------
+</script>
+</body>
+</html>
